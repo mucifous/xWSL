@@ -26,6 +26,8 @@ SET UBUVER=4& SET /p UBUVER=Enter '2' for Ubuntu 22.04 (Jammy) or '4' for Ubuntu
 ECHO: & ECHO Enter a unique name for your distro or hit Enter for default. 
 SET /p DISTRO=Keep this name simple, no space or underscore characters [xWSL]: 
 IF EXIST "%DISTRO%" (ECHO. & ECHO Folder exists with that name, choose a new folder name. & PAUSE & GOTO DI)
+ECHO: Setting default wsl version to 2
+WSL.EXE -d %DISTRO% --set-default-version 2 
 WSL.EXE -d %DISTRO% -e . > "%TEMP%\InstCheck.tmp"
 FOR /f %%i in ("%TEMP%\InstCheck.tmp") do set CHKIN=%%~zi 
 IF %CHKIN% == 0 (ECHO. & ECHO There is a WSL distribution registered with that name; uninstall it or choose a new name. & PAUSE & GOTO DI)
